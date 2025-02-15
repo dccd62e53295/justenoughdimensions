@@ -110,7 +110,7 @@ processResources
     // Move access transformers to META-INF
     //rename '(.+_at.cfg)', 'META-INF/$1'
 }
-
+/*
 if (project.hasProperty("signJarKeyStore")) {
     task signJar(type: SignJar, dependsOn: reobfJar) {
         inputFile = jar.archivePath
@@ -123,4 +123,14 @@ if (project.hasProperty("signJarKeyStore")) {
     }
 
     build.dependsOn signJar
+}
+*/
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+artifacts {
+    archives deobfJar
+    archives jar
 }
